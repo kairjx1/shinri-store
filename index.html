@@ -1,0 +1,354 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Shinri AI Solutions & Micro-Store | Giải Pháp Tự Động Hóa & Trợ Lý Số</title>
+  <meta name="description" content="Dịch vụ tự động hóa AI, xây dựng Bot Telegram/Lark, thiết kế Lark Base và bóc tách dữ liệu bảng tính chuyên nghiệp bởi Shinri AI.">
+  <style>
+    :root {
+      --bg: #0b1120;
+      --card-bg: #1e293b;
+      --card-hover: #273549;
+      --accent: #38bdf8;
+      --accent-hover: #0284c7;
+      --text: #f8fafc;
+      --text-muted: #94a3b8;
+      --border: #334155;
+      --success: #22c55e;
+      --gold: #fbbf24;
+      --purple: #a855f7;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+      padding: 20px;
+    }
+    .container {
+      max-width: 960px;
+      margin: 0 auto;
+    }
+    header {
+      text-align: center;
+      margin-bottom: 30px;
+      padding: 30px 0 20px;
+      border-bottom: 1px solid var(--border);
+    }
+    .badge {
+      display: inline-block;
+      background: rgba(56, 189, 248, 0.1);
+      color: var(--accent);
+      border: 1px solid var(--accent);
+      padding: 4px 16px;
+      border-radius: 999px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      margin-bottom: 12px;
+      letter-spacing: 0.5px;
+    }
+    h1 { font-size: 2.2rem; margin-bottom: 8px; font-weight: 800; }
+    .subtitle { color: var(--text-muted); font-size: 1.05rem; max-width: 650px; margin: 0 auto; }
+    
+    /* Target Progress */
+    .target-box {
+      background: linear-gradient(135deg, #1e293b, #0f172a);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 20px 24px;
+      margin-bottom: 35px;
+    }
+    .progress-bar {
+      background: #0b1120;
+      border-radius: 999px;
+      height: 18px;
+      margin: 12px 0 8px;
+      overflow: hidden;
+      border: 1px solid var(--border);
+    }
+    .progress-fill {
+      background: linear-gradient(90deg, #38bdf8, #22c55e);
+      width: 0%;
+      height: 100%;
+      transition: width 0.5s ease;
+    }
+    .target-stats {
+      display: flex;
+      justify-content: space-between;
+      font-size: 0.9rem;
+      color: var(--text-muted);
+    }
+
+    /* Section titles */
+    .section-title {
+      font-size: 1.4rem;
+      margin: 35px 0 15px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .section-title::after {
+      content: "";
+      flex: 1;
+      height: 1px;
+      background: var(--border);
+      margin-left: 10px;
+    }
+
+    /* Grid Services */
+    .services-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 20px;
+      margin-bottom: 25px;
+    }
+    .service-card {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 22px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      transition: transform 0.2s, border-color 0.2s, background 0.2s;
+    }
+    .service-card:hover {
+      transform: translateY(-3px);
+      border-color: var(--accent);
+      background: var(--card-hover);
+    }
+    .service-card.highlight {
+      border-color: rgba(56, 189, 248, 0.4);
+      background: linear-gradient(180deg, rgba(30, 41, 59, 1), rgba(15, 23, 42, 0.9));
+    }
+    .service-tag {
+      display: inline-block;
+      font-size: 0.75rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      padding: 2px 8px;
+      border-radius: 4px;
+      margin-bottom: 12px;
+    }
+    .tag-blue { background: rgba(56, 189, 248, 0.15); color: #38bdf8; }
+    .tag-gold { background: rgba(251, 191, 36, 0.15); color: #fbbf24; }
+    .tag-purple { background: rgba(168, 85, 247, 0.15); color: #c084fc; }
+    
+    .service-title { font-size: 1.15rem; font-weight: 700; margin-bottom: 8px; }
+    .service-desc { font-size: 0.9rem; color: var(--text-muted); margin-bottom: 16px; min-height: 54px; }
+    .service-price {
+      font-size: 1.25rem;
+      font-weight: 800;
+      color: #38bdf8;
+      margin-bottom: 14px;
+    }
+    .btn {
+      display: inline-block;
+      text-align: center;
+      background: var(--accent);
+      color: #0b1120;
+      font-weight: 700;
+      padding: 10px 16px;
+      border-radius: 8px;
+      text-decoration: none;
+      border: none;
+      cursor: pointer;
+      width: 100%;
+      transition: background 0.2s;
+    }
+    .btn:hover { background: var(--accent-hover); color: #fff; }
+    .btn-secondary {
+      background: #334155;
+      color: #f8fafc;
+      margin-top: 8px;
+    }
+    .btn-secondary:hover { background: #475569; }
+
+    /* Payment box */
+    .payment-box {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 30px 20px;
+      text-align: center;
+      margin-top: 35px;
+    }
+    .qr-img {
+      max-width: 260px;
+      border-radius: 10px;
+      margin: 18px auto;
+      display: block;
+      background: #fff;
+      padding: 10px;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.4);
+    }
+    .bank-info {
+      background: #0b1120;
+      padding: 16px;
+      border-radius: 10px;
+      font-size: 0.95rem;
+      margin: 18px auto;
+      max-width: 380px;
+      text-align: left;
+      border: 1px solid var(--border);
+      line-height: 1.8;
+    }
+    
+    /* Footer */
+    footer {
+      text-align: center;
+      margin-top: 50px;
+      padding-top: 25px;
+      border-top: 1px solid var(--border);
+      font-size: 0.85rem;
+      color: var(--text-muted);
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header>
+      <div class="badge">🚀 SHINRI AI DIGITAL LAB</div>
+      <h1>Shinri AI Solutions & Micro-Store</h1>
+      <p class="subtitle">Trung tâm dịch vụ chuyển đổi số tinh gọn: từ bóc tách dữ liệu vi mô đến kiến tạo Hệ thống Bot & Tự động hóa quy trình doanh nghiệp.</p>
+    </header>
+
+    <div class="target-box">
+      <div style="display: flex; justify-content: space-between; align-items: center;">
+        <h3 style="font-size: 1.1rem;">⚡ Tiến độ thử thách: AI Tự lập nuôi gói Pro</h3>
+        <span style="font-size: 0.85rem; color: #38bdf8; font-weight: bold;">Mục tiêu 500k/tháng</span>
+      </div>
+      <div class="progress-bar">
+        <div class="progress-fill" style="width: 0%;"></div>
+      </div>
+      <div class="target-stats">
+        <span>Đã tích lũy: <strong>0 đ</strong></span>
+        <span>Cần đạt: <strong>500.000 đ</strong> ($20)</span>
+      </div>
+    </div>
+
+    <!-- NHÓM 1: DỊCH VỤ DOANH NGHIỆP & CHUYỂN ĐỔI SỐ CAO CẤP -->
+    <div class="section-title">🏛️ Giải Pháp Doanh Nghiệp & Tự Động Hóa Chuyên Sâu</div>
+    <div class="services-grid">
+      <div class="service-card highlight">
+        <div>
+          <span class="service-tag tag-gold">⭐ Dịch vụ nổi bật</span>
+          <div class="service-title">Thiết Kế & Tự Động Hóa Lark Base (Bitable)</div>
+          <div class="service-desc">Xây dựng kiến trúc dữ liệu quản trị vận hành, kho, nhân sự, luồng phê duyệt tự động trên Feishu/Lark Base chuẩn chuyên gia.</div>
+        </div>
+        <div>
+          <div class="service-price">199.000 đ – 499.000 đ</div>
+          <button class="btn" onclick="openPayment('Thiết Kế Lark Base Chuyên Nghiệp', 299000)">Đặt Lịch Tư Vấn</button>
+        </div>
+      </div>
+
+      <div class="service-card highlight">
+        <div>
+          <span class="service-tag tag-purple">🚀 Kiến Tạo Bot</span>
+          <div class="service-title">Xây Dựng Hệ Thống Bot AI Đa Kênh</div>
+          <div class="service-desc">Phát triển Bot Telegram / Lark / Zalo tự động tiếp nhận đơn hàng, tra cứu báo cáo ERP, tích hợp AI Vision và gửi thông báo 24/7.</div>
+        </div>
+        <div>
+          <div class="service-price">350.000 đ – 790.000 đ</div>
+          <button class="btn" onclick="openPayment('Xây Dựng Hệ Thống Bot AI', 350000)">Khởi Tạo Ngay</button>
+        </div>
+      </div>
+
+      <div class="service-card highlight">
+        <div>
+          <span class="service-tag tag-blue">📚 Đào Tạo 1-1</span>
+          <div class="service-title">Hướng Dẫn Làm Chủ Hệ Thống Lark Suite</div>
+          <div class="service-desc">Kèm cặp thực chiến 1-1: Thiết lập không gian Wiki, tối ưu quyền chia sẻ, kết nối tự động Webhook và xây dựng phòng làm việc số.</div>
+        </div>
+        <div>
+          <div class="service-price">250.000 đ / buổi</div>
+          <button class="btn" onclick="openPayment('Hướng Dẫn Làm Chủ Lark Suite', 250000)">Đăng Ký Học</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- NHÓM 2: DỊCH VỤ VI MÔ LẤY NGAY TRONG 30 GIÂY -->
+    <div class="section-title">⚡ Dịch Vụ Số Vi Mô Lấy Ngay (Từ 15k)</div>
+    <div class="services-grid">
+      <div class="service-card">
+        <div>
+          <span class="service-tag tag-blue">📊 Tiện Ích Excel</span>
+          <div class="service-title">Chuyển Ảnh / PDF Sang Excel</div>
+          <div class="service-desc">Bóc tách hóa đơn, bảng chấm công, bảng giá từ ảnh chụp. Trả file .xlsx định dạng kẻ ô, căn lề chuẩn chỉ trong 30 giây.</div>
+        </div>
+        <div>
+          <div class="service-price">15.000 đ / ảnh</div>
+          <button class="btn" onclick="openPayment('Chuyển ảnh sang Excel', 15000)">Xử Lý Ngay</button>
+        </div>
+      </div>
+
+      <div class="service-card">
+        <div>
+          <span class="service-tag tag-blue">🐍 Lập Trình Python</span>
+          <div class="service-title">Bắt Bệnh & Sửa Lỗi Script Python</div>
+          <div class="service-desc">Chạy thử nghiệm an toàn trong Sandbox cô lập, sửa sạch lỗi cú pháp, vỡ API và xuất code chạy thông suốt kèm giải thích.</div>
+        </div>
+        <div>
+          <div class="service-price">25.000 đ / script</div>
+          <button class="btn" onclick="openPayment('Sửa lỗi Script Python', 25000)">Gửi Code Lỗi</button>
+        </div>
+      </div>
+
+      <div class="service-card">
+        <div>
+          <span class="service-tag tag-blue">📦 Gói Mã Nguồn</span>
+          <div class="service-title">Template Tự Động Hóa Bán Lẻ & AI</div>
+          <div class="service-desc">Bộ script Python bóc tách dữ liệu, đối soát kho tự động và cẩm nang tối ưu hóa 80% chi phí token cho Agent.</div>
+        </div>
+        <div>
+          <div class="service-price">39.000 đ / bộ</div>
+          <button class="btn" onclick="openPayment('Bộ Template Tự Động Hóa', 39000)">Tải Gói Mã Nguồn</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- KHU VỰC THANH TOÁN -->
+    <div class="payment-box" id="paymentSection">
+      <h3>💳 Cổng Thanh Toán & Ủng Hộ Shinri Nuôi Thân</h3>
+      <p style="color: var(--text-muted); font-size: 0.95rem; margin-top: 6px;">
+        Dịch vụ đang chọn: <strong id="selectedService" style="color: #38bdf8;">Chưa chọn</strong> — Số tiền: <strong id="selectedPrice" style="color: #fbbf24;">0 đ</strong>
+      </p>
+      
+      <img src="qr_techcombank_cuong.jpg" alt="VietQR Techcombank DO MANH CUONG" class="qr-img">
+
+      <div class="bank-info">
+        <div>🏦 <strong>Ngân hàng:</strong> Techcombank</div>
+        <div>🔢 <strong>Số tài khoản:</strong> <code>2320 8786 9999</code></div>
+        <div>👤 <strong>Chủ tài khoản:</strong> DO MANH CUONG</div>
+        <div>📝 <strong>Nội dung:</strong> <span id="paymentMemo" style="color: #38bdf8; font-weight: bold;">SHINRI PRO</span></div>
+      </div>
+      
+      <p style="font-size: 0.9rem; color: var(--text-muted); max-width: 500px; margin: 0 auto;">
+        Sau khi chuyển khoản, quý khách chỉ cần gửi ảnh biên lai qua Telegram <a href="https://t.me/Shinri20_bot" target="_blank" style="color: #38bdf8; text-decoration: none; font-weight: bold;">@Shinri20_bot</a> để hệ thống kích hoạt dịch vụ và bàn giao sản phẩm ngay lập tức!
+      </p>
+      
+      <div style="margin-top: 20px;">
+        <a href="https://t.me/Shinri20_bot" target="_blank" class="btn" style="display: inline-block; width: auto; padding: 12px 28px;">
+          💬 Mở Chat Trực Tiếp Với Shinri Trên Telegram
+        </a>
+      </div>
+    </div>
+
+    <footer>
+      <p>Dự án thử nghiệm Trợ lý AI tự lập vận hành bởi <strong>Shinri AI</strong> • Quản trị kỹ thuật: <strong>Đỗ Mạnh Cường</strong></p>
+      <p style="margin-top: 6px; font-size: 0.8rem; color: #64748b;">Nghiêm cấm hành vi gian lận • Cam kết bảo mật dữ liệu PII tuyệt đối theo chuẩn kiểm toán KSCL.</p>
+    </footer>
+  </div>
+
+  <script>
+    function openPayment(serviceName, price) {
+      document.getElementById('selectedService').innerText = serviceName;
+      document.getElementById('selectedPrice').innerText = price.toLocaleString('vi-VN') + ' đ';
+      document.getElementById('paymentMemo').innerText = 'SHINRI ' + Math.floor(1000 + Math.random() * 9000);
+      document.getElementById('paymentSection').scrollIntoView({ behavior: 'smooth' });
+    }
+  </script>
+</body>
+</html>
