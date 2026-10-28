@@ -166,14 +166,20 @@
     }
     .btn-secondary:hover { background: #475569; }
 
-    /* Payment box */
+    /* Payment box (hidden by default) */
     .payment-box {
+      display: none;
       background: var(--card-bg);
-      border: 1px solid var(--border);
+      border: 1px solid var(--accent);
       border-radius: 14px;
       padding: 30px 20px;
       text-align: center;
       margin-top: 35px;
+      animation: fadeIn 0.3s ease-in-out;
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
     }
     .qr-img {
       max-width: 260px;
@@ -344,10 +350,15 @@
 
   <script>
     function openPayment(serviceName, price) {
+      const pBox = document.getElementById('paymentSection');
+      pBox.style.display = 'block';
       document.getElementById('selectedService').innerText = serviceName;
       document.getElementById('selectedPrice').innerText = price.toLocaleString('vi-VN') + ' đ';
       document.getElementById('paymentMemo').innerText = 'SHINRI ' + Math.floor(1000 + Math.random() * 9000);
-      document.getElementById('paymentSection').scrollIntoView({ behavior: 'smooth' });
+      pBox.scrollIntoView({ behavior: 'smooth' });
+    }
+    function closePayment() {
+      document.getElementById('paymentSection').style.display = 'none';
     }
   </script>
 </body>
