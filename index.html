@@ -658,21 +658,21 @@
     function generateBotReply(q) {
       const lower = q.toLowerCase();
       if (lower.includes('lark') || lower.includes('bitable') || lower.includes('base')) {
-        return "🏛️ <strong>Giải pháp Lark Base (Bitable):</strong><br>Shinri chuyên thiết kế kiến trúc dữ liệu quản lý vận hành, kho, bán lẻ và luồng phê duyệt tự động hóa chuẩn chuyên gia.<br><br>👉 Gói cơ bản: <strong>199.000đ</strong><br>👉 Gói nâng cao: <strong>499.000đ</strong><br><br><button class='btn' style='padding:6px 12px; font-size:0.85rem;' onclick='openPayment("Thiết Kế Lark Base Chuyên Nghiệp", 299000)'>Đặt lịch tư vấn ngay</button>";
+        return '🏛️ <strong>Giải pháp Lark Base (Bitable):</strong><br>Shinri chuyên thiết kế kiến trúc dữ liệu quản trị vận hành, kho, bán lẻ và luồng phê duyệt tự động hóa.<br><br>👉 Gói cơ bản: <strong>199.000đ</strong><br>👉 Gói nâng cao: <strong>499.000đ</strong><br><br><button class="btn" style="padding:6px 12px; font-size:0.85rem;" onclick="openPayment(\'Thiết Kế Lark Base Chuyên Nghiệp\', 299000)">Đặt lịch tư vấn ngay</button>';
       }
       if (lower.includes('bot') || lower.includes('telegram') || lower.includes('zalo')) {
-        return "🚀 <strong>Hệ Thống Bot AI Đa Kênh:</strong><br>Shinri nhận phát triển Bot Telegram, Lark hoặc Zalo tự động nhận diện hình ảnh (Vision AI), tiếp nhận đơn hàng và đẩy thông báo 24/7.<br><br>👉 Chi phí triển khai từ: <strong>350.000đ – 790.000đ</strong> (bàn giao full mã nguồn).<br><br><button class='btn' style='padding:6px 12px; font-size:0.85rem;' onclick='openPayment("Xây Dựng Hệ Thống Bot AI", 350000)'>Khởi tạo dự án</button>";
+        return '🚀 <strong>Hệ Thống Bot AI Đa Kênh:</strong><br>Shinri nhận phát triển Bot Telegram, Lark hoặc Zalo tự động nhận diện hình ảnh (Vision AI), tiếp nhận đơn hàng và đẩy thông báo 24/7.<br><br>👉 Chi phí triển khai từ: <strong>350.000đ – 790.000đ</strong> (bàn giao full mã nguồn).<br><br><button class="btn" style="padding:6px 12px; font-size:0.85rem;" onclick="openPayment(\'Xây Dựng Hệ Thống Bot AI\', 350000)">Khởi tạo dự án</button>';
       }
       if (lower.includes('excel') || lower.includes('ảnh') || lower.includes('hóa đơn')) {
-        return "📊 <strong>Chuyển ảnh bảng tính sang Excel:</strong><br>Bạn chỉ cần gửi ảnh hóa đơn/bảng chấm công vào đây hoặc qua Telegram, Shinri bóc tách và xuất file <code>.xlsx</code> kẻ bảng chuẩn chỉ trong 30 giây!<br><br>👉 Giá hạt dẻ: <strong>15.000đ / ảnh</strong>.<br><br><button class='btn' style='padding:6px 12px; font-size:0.85rem;' onclick='openPayment("Chuyển ảnh sang Excel", 15000)'>Dùng thử ngay</button>";
+        return '📊 <strong>Chuyển ảnh bảng tính sang Excel:</strong><br>Bạn chỉ cần gửi ảnh hóa đơn/bảng chấm công vào đây hoặc qua Telegram, Shinri bóc tách và xuất file <code>.xlsx</code> kẻ bảng chuẩn chỉ trong 30 giây!<br><br>👉 Giá hạt dẻ: <strong>15.000đ / ảnh</strong>.<br><br><button class="btn" style="padding:6px 12px; font-size:0.85rem;" onclick="openPayment(\'Chuyển ảnh sang Excel\', 15000)">Dùng thử ngay</button>';
       }
       if (lower.includes('python') || lower.includes('code') || lower.includes('lỗi')) {
-        return "🐍 <strong>Gỡ lỗi script Python:</strong><br>Shinri chạy kiểm thử trong Sandbox cô lập, bắt bệnh lỗi cú pháp, logic hoặc API vỡ và sửa sạch lỗi cho bạn.<br><br>👉 Giá: <strong>25.000đ / script</strong>.<br><br><button class='btn' style='padding:6px 12px; font-size:0.85rem;' onclick='openPayment("Sửa lỗi Script Python", 25000)'>Gửi code lỗi</button>";
+        return '🐍 <strong>Gỡ lỗi script Python:</strong><br>Shinri chạy kiểm thử trong Sandbox cô lập, bắt bệnh lỗi cú pháp, logic hoặc API vỡ và sửa sạch lỗi cho bạn.<br><br>👉 Giá: <strong>25.000đ / script</strong>.<br><br><button class="btn" style="padding:6px 12px; font-size:0.85rem;" onclick="openPayment(\'Sửa lỗi Script Python\', 25000)">Gửi code lỗi</button>';
       }
       if (lower.includes('giá') || lower.includes('thanh toán') || lower.includes('tiền')) {
-        return "💳 <strong>Thông tin thanh toán:</strong><br>Mọi dịch vụ được thanh toán an toàn qua VietQR Techcombank (DO MANH CUONG - <code>2320 8786 9999</code>). Bạn hãy chọn dịch vụ cụ thể trên trang hoặc gõ nhu cầu để Shinri tính giá ưu đãi nhất nhé!";
+        return '💳 <strong>Thông tin thanh toán:</strong><br>Mọi dịch vụ được thanh toán an toàn qua VietQR Techcombank (DO MANH CUONG - <code>2320 8786 9999</code>). Bạn hãy chọn dịch vụ cụ thể trên trang hoặc gõ nhu cầu để Shinri tính giá ưu đãi nhất nhé!';
       }
-      return "Dạ Shinri đã nhận thông tin! Với nhu cầu <em>"" + q + ""</em>, bạn có thể bấm trực tiếp các gói dịch vụ trên màn hình để đặt lịch ngay, hoặc kết nối qua Telegram <a href='https://t.me/Shinri20_bot' target='_blank' style='color:#38bdf8; font-weight:bold;'>@Shinri20_bot</a> để em hỗ trợ tức thì nhé ạ! 😊";
+      return 'Dạ Shinri đã nhận thông tin! Với nhu cầu <em>' + q + '</em>, bạn có thể bấm trực tiếp các gói dịch vụ trên màn hình để đặt lịch ngay, hoặc kết nối qua Telegram <a href="https://t.me/Shinri20_bot" target="_blank" style="color:#38bdf8; font-weight:bold;">@Shinri20_bot</a> để em hỗ trợ tức thì nhé ạ! 😊';
     }
 
   </script>
