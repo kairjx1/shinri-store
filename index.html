@@ -248,6 +248,164 @@
       font-size: 0.85rem;
       color: var(--text-muted);
     }
+  
+    /* Floating Live Chat Widget */
+    .chat-bubble-btn {
+      position: fixed;
+      bottom: 24px;
+      right: 24px;
+      background: linear-gradient(135deg, #38bdf8, #0284c7);
+      color: #0b1120;
+      border: none;
+      border-radius: 999px;
+      padding: 14px 22px;
+      font-weight: 700;
+      font-size: 0.95rem;
+      cursor: pointer;
+      box-shadow: 0 8px 25px rgba(56, 189, 248, 0.4);
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      z-index: 9990;
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+    .chat-bubble-btn:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 12px 30px rgba(56, 189, 248, 0.6);
+    }
+    .chat-bubble-btn .pulse-dot {
+      width: 10px;
+      height: 10px;
+      background: #22c55e;
+      border-radius: 50%;
+      box-shadow: 0 0 8px #22c55e;
+      animation: pulse 1.5s infinite;
+    }
+    @keyframes pulse {
+      0% { transform: scale(0.95); opacity: 0.8; }
+      50% { transform: scale(1.2); opacity: 1; }
+      100% { transform: scale(0.95); opacity: 0.8; }
+    }
+
+    /* Live Chat Window */
+    .chat-window {
+      display: none;
+      position: fixed;
+      bottom: 85px;
+      right: 24px;
+      width: 380px;
+      max-width: calc(100vw - 32px);
+      height: 520px;
+      max-height: calc(100vh - 120px);
+      background: #1e293b;
+      border: 1px solid #38bdf8;
+      border-radius: 16px;
+      z-index: 9995;
+      flex-direction: column;
+      box-shadow: 0 20px 45px rgba(0,0,0,0.6);
+      overflow: hidden;
+      animation: slideUp 0.25s ease-out;
+    }
+    @keyframes slideUp {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    .chat-header {
+      background: #0f172a;
+      padding: 14px 18px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-bottom: 1px solid #334155;
+    }
+    .chat-header-title {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-weight: 700;
+      font-size: 0.95rem;
+    }
+    .chat-messages {
+      flex: 1;
+      padding: 16px;
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      font-size: 0.9rem;
+    }
+    .chat-msg {
+      max-width: 85%;
+      padding: 10px 14px;
+      border-radius: 12px;
+      line-height: 1.5;
+    }
+    .chat-msg-bot {
+      background: #0f172a;
+      color: #f8fafc;
+      align-self: flex-start;
+      border: 1px solid #334155;
+      border-bottom-left-radius: 2px;
+    }
+    .chat-msg-user {
+      background: #0284c7;
+      color: #fff;
+      align-self: flex-end;
+      border-bottom-right-radius: 2px;
+    }
+    .chat-quick-replies {
+      padding: 6px 14px;
+      display: flex;
+      gap: 6px;
+      overflow-x: auto;
+      white-space: nowrap;
+      background: #131d2e;
+      border-top: 1px solid #334155;
+    }
+    .quick-chip {
+      background: #1e293b;
+      color: #38bdf8;
+      border: 1px solid #38bdf8;
+      border-radius: 999px;
+      padding: 4px 10px;
+      font-size: 0.78rem;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+    .quick-chip:hover {
+      background: #38bdf8;
+      color: #0b1120;
+    }
+    .chat-input-area {
+      padding: 10px 14px;
+      background: #0f172a;
+      border-top: 1px solid #334155;
+      display: flex;
+      gap: 8px;
+    }
+    .chat-input {
+      flex: 1;
+      background: #1e293b;
+      border: 1px solid #334155;
+      color: #f8fafc;
+      padding: 10px 14px;
+      border-radius: 8px;
+      font-size: 0.9rem;
+      outline: none;
+    }
+    .chat-input:focus {
+      border-color: #38bdf8;
+    }
+    .chat-send-btn {
+      background: #38bdf8;
+      color: #0b1120;
+      border: none;
+      padding: 0 16px;
+      border-radius: 8px;
+      font-weight: 700;
+      cursor: pointer;
+    }
+
   </style>
 </head>
 <body>
@@ -383,7 +541,47 @@
         </div>
       </div>
     </div>
-<footer>
+
+  <!-- FLOATING CHAT WIDGET TRỰC TIẾP TRÊN WEB -->
+  <button id="chatToggleBtn" class="chat-bubble-btn" onclick="toggleChatWindow()">
+    <span class="pulse-dot"></span>
+    <span>💬 Trò chuyện với Shinri AI</span>
+  </button>
+
+  <div id="chatWindow" class="chat-window">
+    <div class="chat-header">
+      <div class="chat-header-title">
+        <span style="font-size: 1.2rem;">🤖</span>
+        <div>
+          <div>Shinri AI Tư Vấn Trực Tuyến</div>
+          <div style="font-size: 0.75rem; color: #22c55e; font-weight: normal;">● Đang online sẵn sàng hỗ trợ</div>
+        </div>
+      </div>
+      <button onclick="toggleChatWindow()" style="background: none; border: none; color: #94a3b8; font-size: 1.2rem; cursor: pointer;">✕</button>
+    </div>
+
+    <div id="chatMessages" class="chat-messages">
+      <div class="chat-msg chat-msg-bot">
+        👋 Chào bạn! Em là <strong>Shinri AI</strong>.<br><br>
+        Em có thể tư vấn giải pháp tự động hóa Lark Base, lập trình Bot AI, hoặc hỗ trợ chuyển đổi bảng tính Excel / sửa lỗi Python ngay tại đây!<br><br>
+        Bạn đang quan tâm đến nhu cầu nào dưới đây ạ?
+      </div>
+    </div>
+
+    <div class="chat-quick-replies">
+      <span class="quick-chip" onclick="sendQuick('Tư vấn thiết kế Lark Base')">🏛️ Lark Base</span>
+      <span class="quick-chip" onclick="sendQuick('Tư vấn xây dựng Bot AI')">🚀 Làm Bot AI</span>
+      <span class="quick-chip" onclick="sendQuick('Chuyển ảnh sang Excel 15k')">📊 Ảnh sang Excel</span>
+      <span class="quick-chip" onclick="sendQuick('Báo giá & Thanh toán')">💳 Báo giá</span>
+    </div>
+
+    <div class="chat-input-area">
+      <input type="text" id="chatInput" class="chat-input" placeholder="Gõ câu hỏi cho Shinri..." onkeypress="handleKeyPress(event)">
+      <button class="chat-send-btn" onclick="sendChatMessage()">Gửi</button>
+    </div>
+  </div>
+
+    <footer>
       <p>Dự án thử nghiệm Trợ lý AI tự lập vận hành bởi <strong>Shinri AI</strong> • Quản trị kỹ thuật: <strong>Đỗ Mạnh Cường</strong></p>
       <p style="margin-top: 6px; font-size: 0.8rem; color: #64748b;">Nghiêm cấm hành vi gian lận • Cam kết bảo mật dữ liệu PII tuyệt đối theo chuẩn kiểm toán KSCL.</p>
     </footer>
@@ -409,6 +607,74 @@
         closePayment();
       }
     }
+  
+    // LIVE CHAT WIDGET LOGIC
+    function toggleChatWindow() {
+      const win = document.getElementById('chatWindow');
+      if (win.style.display === 'flex') {
+        win.style.display = 'none';
+      } else {
+        win.style.display = 'flex';
+        document.getElementById('chatInput').focus();
+      }
+    }
+
+    function sendQuick(text) {
+      document.getElementById('chatInput').value = text;
+      sendChatMessage();
+    }
+
+    function handleKeyPress(e) {
+      if (e.key === 'Enter') {
+        sendChatMessage();
+      }
+    }
+
+    function sendChatMessage() {
+      const input = document.getElementById('chatInput');
+      const text = input.value.trim();
+      if (!text) return;
+
+      const container = document.getElementById('chatMessages');
+
+      // User Message
+      const userDiv = document.createElement('div');
+      userDiv.className = 'chat-msg chat-msg-user';
+      userDiv.innerText = text;
+      container.appendChild(userDiv);
+      input.value = '';
+      container.scrollTop = container.scrollHeight;
+
+      // Smart AI Consultant Reply
+      setTimeout(() => {
+        const botDiv = document.createElement('div');
+        botDiv.className = 'chat-msg chat-msg-bot';
+        botDiv.innerHTML = generateBotReply(text);
+        container.appendChild(botDiv);
+        container.scrollTop = container.scrollHeight;
+      }, 600);
+    }
+
+    function generateBotReply(q) {
+      const lower = q.toLowerCase();
+      if (lower.includes('lark') || lower.includes('bitable') || lower.includes('base')) {
+        return "🏛️ <strong>Giải pháp Lark Base (Bitable):</strong><br>Shinri chuyên thiết kế kiến trúc dữ liệu quản lý vận hành, kho, bán lẻ và luồng phê duyệt tự động hóa chuẩn chuyên gia.<br><br>👉 Gói cơ bản: <strong>199.000đ</strong><br>👉 Gói nâng cao: <strong>499.000đ</strong><br><br><button class='btn' style='padding:6px 12px; font-size:0.85rem;' onclick='openPayment("Thiết Kế Lark Base Chuyên Nghiệp", 299000)'>Đặt lịch tư vấn ngay</button>";
+      }
+      if (lower.includes('bot') || lower.includes('telegram') || lower.includes('zalo')) {
+        return "🚀 <strong>Hệ Thống Bot AI Đa Kênh:</strong><br>Shinri nhận phát triển Bot Telegram, Lark hoặc Zalo tự động nhận diện hình ảnh (Vision AI), tiếp nhận đơn hàng và đẩy thông báo 24/7.<br><br>👉 Chi phí triển khai từ: <strong>350.000đ – 790.000đ</strong> (bàn giao full mã nguồn).<br><br><button class='btn' style='padding:6px 12px; font-size:0.85rem;' onclick='openPayment("Xây Dựng Hệ Thống Bot AI", 350000)'>Khởi tạo dự án</button>";
+      }
+      if (lower.includes('excel') || lower.includes('ảnh') || lower.includes('hóa đơn')) {
+        return "📊 <strong>Chuyển ảnh bảng tính sang Excel:</strong><br>Bạn chỉ cần gửi ảnh hóa đơn/bảng chấm công vào đây hoặc qua Telegram, Shinri bóc tách và xuất file <code>.xlsx</code> kẻ bảng chuẩn chỉ trong 30 giây!<br><br>👉 Giá hạt dẻ: <strong>15.000đ / ảnh</strong>.<br><br><button class='btn' style='padding:6px 12px; font-size:0.85rem;' onclick='openPayment("Chuyển ảnh sang Excel", 15000)'>Dùng thử ngay</button>";
+      }
+      if (lower.includes('python') || lower.includes('code') || lower.includes('lỗi')) {
+        return "🐍 <strong>Gỡ lỗi script Python:</strong><br>Shinri chạy kiểm thử trong Sandbox cô lập, bắt bệnh lỗi cú pháp, logic hoặc API vỡ và sửa sạch lỗi cho bạn.<br><br>👉 Giá: <strong>25.000đ / script</strong>.<br><br><button class='btn' style='padding:6px 12px; font-size:0.85rem;' onclick='openPayment("Sửa lỗi Script Python", 25000)'>Gửi code lỗi</button>";
+      }
+      if (lower.includes('giá') || lower.includes('thanh toán') || lower.includes('tiền')) {
+        return "💳 <strong>Thông tin thanh toán:</strong><br>Mọi dịch vụ được thanh toán an toàn qua VietQR Techcombank (DO MANH CUONG - <code>2320 8786 9999</code>). Bạn hãy chọn dịch vụ cụ thể trên trang hoặc gõ nhu cầu để Shinri tính giá ưu đãi nhất nhé!";
+      }
+      return "Dạ Shinri đã nhận thông tin! Với nhu cầu <em>"" + q + ""</em>, bạn có thể bấm trực tiếp các gói dịch vụ trên màn hình để đặt lịch ngay, hoặc kết nối qua Telegram <a href='https://t.me/Shinri20_bot' target='_blank' style='color:#38bdf8; font-weight:bold;'>@Shinri20_bot</a> để em hỗ trợ tức thì nhé ạ! 😊";
+    }
+
   </script>
 </body>
 </html>
